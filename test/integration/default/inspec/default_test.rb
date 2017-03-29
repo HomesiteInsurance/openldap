@@ -13,10 +13,10 @@ pkg = if os.debian?
       end
 
 config = if os[:family] == 'redhat' && os[:release].start_with?('7')
-         '/etc/sysconfig/slapd'
-	 else
-	 '/etc/sysconfig/ldap'
-	 end
+           '/etc/sysconfig/slapd'
+         elsif os.redhat?
+           '/etc/sysconfig/ldap'
+         end
 
 describe package(pkg) do
   it { should be_installed }
@@ -30,4 +30,3 @@ end
 describe file(config) do
   it { should be_file }
 end
-
